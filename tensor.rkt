@@ -27,3 +27,20 @@
       (else (cons (tlen t) (shape (tref t 0)))))))
 
 (shape (tensor (tensor 1 3) (tensor 2 4)))
+
+; extended functions for tensor
+; descending into the tensor
+(+ 4 (tensor 1 2 3))
+
+; sum1
+(define sum1
+  (lambda (t)
+    (summed t (sub1 (tlen t)) 0)))
+
+(define summed
+  (lambda (t idx a)
+    (cond
+      ((< idx 0) a)
+      (else (summed t (sub1 idx) (+ (tref t idx) a))))))
+
+(sum1 (tensor 1 2 3 8.1))
